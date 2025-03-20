@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan Umum</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigasi -->
+        <aside class="sidebar">
+            <h2>Pengaturan</h2>
+            <ul>
+                <li onclick="tampilkanTab('akun')">Akun</li>
+                <li onclick="tampilkanTab('notifikasi')">Notifikasi</li>
+                <li onclick="tampilkanTab('tema')">Tema</li>
+                <li onclick="tampilkanTab('bahasa')">Bahasa</li>
+            </ul>
+        </aside>
+
+        <!-- Konten Pengaturan -->
+        <main class="content">
+            <section id="akun" class="tab active">
+                <h2>Pengaturan Akun</h2>
+                <label for="username">Nama Pengguna:</label>
+                <input type="text" id="username" placeholder="Masukkan nama Anda">
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Masukkan email Anda">
+                
+                <label for="password">Kata Sandi:</label>
+                <input type="password" id="password" placeholder="Masukkan kata sandi baru">
+                
+                <button onclick="simpanPengaturan()">Simpan</button>
+            </section>
+
+            <section id="notifikasi" class="tab">
+                <h2>Pengaturan Notifikasi</h2>
+                <label>
+                    <input type="checkbox" id="notif-checkbox">
+                    Aktifkan Notifikasi
+                </label>
+            </section>
+
+            <section id="tema" class="tab">
+                <h2>Pengaturan Tema</h2>
+                <label for="tema">Pilih Tema:</label>
+                <select id="tema" onchange="ubahTema()">
+                    <option value="terang">Terang</option>
+                    <option value="gelap">Gelap</option>
+                </select>
+            </section>
+
+            <section id="bahasa" class="tab">
+                <h2>Pengaturan Bahasa</h2>
+                <label for="bahasa">Pilih Bahasa:</label>
+                <select id="bahasa">
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                </select>
+            </section>
+          <a href="dashboard.html" class="btn-dashboard">Kembali ke Dashboard</a>
+
+        </main>
+    </div>
+
+    <script>
+        function simpanPengaturan() {
+            let username = document.getElementById("username").value;
+            let email = document.getElementById("email").value;
+            alert("Pengaturan disimpan:\nNama: " + username + "\nEmail: " + email);
+        }
+
+        function ubahTema() {
+            let tema = document.getElementById("tema").value;
+            if (tema === "gelap") {
+                document.body.classList.add("dark-mode");
+            } else {
+                document.body.classList.remove("dark-mode");
+            }
+        }
+
+        function tampilkanTab(id) {
+            let tabs = document.querySelectorAll(".tab");
+            tabs.forEach(tab => tab.classList.remove("active"));
+            document.getElementById(id).classList.add("active");
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #333;
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .sidebar li:hover {
+            background: #555;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .tab {
+            display: none;
+        }
+
+        .tab.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        /* Mode Gelap */
+        .dark-mode {
+            background: #222;
+            color: white;
+        }
+
+        .dark-mode .content {
+            background: #333;
+            color: white;
+        }
+    </style>
+</body>
+</html>
+

@@ -1,218 +1,263 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Profil - Raebemnyu</title>
+
+  <!-- Font & Icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
   
-  <!-- Font Awesome untuk ikon -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <!-- Google Fonts: Poppins -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap" rel="stylesheet">
-  
+  <!-- Tambahan di dalam <head> -->
+<audio id="click-sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_b70b7bcd25.mp3"></audio>
+
   <style>
-    /* Global Styles */
     * {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       box-sizing: border-box;
+      scroll-behavior: smooth;
     }
     body {
       font-family: 'Poppins', sans-serif;
-      background: #f4f4f4;
-      line-height: 1.6;
+      background: #f0f2f5;
       color: #333;
     }
     a {
       text-decoration: none;
       color: inherit;
     }
-    img {
-      max-width: 100%;
-      display: block;
+
+    header {
+      background: linear-gradient(-45deg, #141e30, #243b55, #1f1f1f, #3b3b3b);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
     }
 
-    /* Header */
-    header {
-      background: linear-gradient(135deg, #141e30, #243b55);
-      color: #fff;
-      padding: 40px 20px;
-      text-align: center;
-      position: relative;
-    }
     header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+      font-size: 3rem;
     }
     header p {
       font-size: 1.2rem;
+      margin-top: 10px;
     }
 
-    /* Navigation */
     nav {
+      position: sticky;
+      top: 0;
       background: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-    nav ul {
-      list-style: none;
+
+    .nav-container {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1000px;
+      margin: auto;
+      padding: 10px 20px;
     }
-    nav ul li {
-      margin: 0 15px;
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
-    nav ul li a {
-      padding: 15px;
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 10px;
+    }
+    nav li a {
+      padding: 15px 20px;
+      display: block;
       font-weight: 500;
       color: #333;
-      transition: color 0.3s;
+      transition: all 0.3s ease;
     }
-    nav ul li a:hover {
-      color: #ffcc00;
+    nav li a:hover {
+      color: #ff9900;
     }
 
-    /* Main Content */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #fff;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+      nav ul.active {
+        display: flex;
+      }
+      nav li a {
+        padding: 15px 20px;
+        border-top: 1px solid #eee;
+      }
+    }
+
     main {
       max-width: 1000px;
       margin: 40px auto;
       padding: 0 20px;
     }
+
     section.container {
       background: #fff;
       padding: 30px;
       margin-bottom: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.6s ease;
     }
-    section.container h2 {
-      margin-bottom: 20px;
-      font-size: 2rem;
-      border-bottom: 2px solid #ffcc00;
-      padding-bottom: 10px;
-    }
-    section.container p {
-      margin-bottom: 15px;
-      font-size: 1rem;
+    section.container.reveal {
+      transform: translateY(0);
+      opacity: 1;
     }
 
-    /* Button */
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      border-bottom: 3px solid #ffcc00;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
     .btn {
       display: inline-block;
+      padding: 10px 20px;
       background: #ffcc00;
       color: #333;
-      padding: 10px 20px;
-      border-radius: 25px;
+      border-radius: 30px;
       font-weight: 600;
-      transition: background 0.3s;
+      margin-top: 10px;
+      transition: 0.3s;
     }
     .btn:hover {
-      background: #ff9900;
+      background: #ffaa00;
     }
 
-    /* Skills Section */
     #skills ul {
+      list-style: none;
       display: flex;
       flex-wrap: wrap;
       gap: 15px;
-      list-style: none;
     }
-    #skills ul li {
-      background: #f9f9f9;
-      border: 1px solid #ddd;
+    #skills li {
+      background: #f0f0f0;
+      border-radius: 25px;
       padding: 10px 15px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      transition: transform 0.3s;
+      font-size: 0.95rem;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
     }
-    #skills ul li:hover {
+    #skills li:hover {
       transform: scale(1.05);
     }
 
-    /* Experience Cards */
     .experience-card {
-      margin-bottom: 20px;
       padding: 20px;
+      background: #fafafa;
       border-left: 4px solid #ffcc00;
-      background: #fdfdfd;
-      border-radius: 5px;
+      border-radius: 10px;
+      margin-bottom: 20px;
       transition: background 0.3s;
     }
-    .experience-card h3 {
-      margin-bottom: 10px;
-      font-size: 1.5rem;
-    }
-    .experience-card p {
-      font-size: 1rem;
-    }
     .experience-card:hover {
-      background: #fff8e1;
+      background: #fffce0;
     }
 
-    /* Contact Section */
-    #contact p {
-      font-size: 1rem;
-      margin-bottom: 10px;
-    }
     #contact a {
-      color: #ffcc00;
+      color: #ff9900;
       font-weight: 600;
     }
 
-    /* Footer */
     footer {
-      background: #333;
-      color: #fff;
+      background: #222;
+      color: #eee;
       text-align: center;
       padding: 20px;
-    }
+      
+      <!-- Tambahan di <style> -->
+nav ul {
+  /* sebelumnya */
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+}
+nav ul.active {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+  animation: slideDown 0.4s ease forwards;
+}
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      nav ul {
-        flex-direction: column;
-      }
-      nav ul li {
-        margin: 10px 0;
-      }
-      #skills ul {
-        flex-direction: column;
-      }
-    }
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+    
   </style>
 </head>
 <body>
 
-  <!-- Header Section -->
   <header>
     <h1>Raebemnyu</h1>
     <p>Pelajar | Teknologi | Literasi</p>
   </header>
 
-  <!-- Navigation Bar -->
   <nav>
-    <ul>
-      <li><a href="#about">Tentang</a></li>
-      <li><a href="#skills">Keahlian</a></li>
-      <li><a href="#experience">Pengalaman</a></li>
-      <li><a href="#contact">Kontak</a></li>
-    </ul>
+    <div class="nav-container">
+      <div class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul id="nav-menu">
+        <li><a href="#about">Tentang</a></li>
+        <li><a href="#skills">Keahlian</a></li>
+        <li><a href="#experience">Pengalaman</a></li>
+        <li><a href="#contact">Kontak</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <!-- Main Content -->
   <main>
-    <!-- Tentang Saya -->
     <section id="about" class="container">
       <h2>Tentang Saya</h2>
       <p>
-        Hello, I'm Raebemnyu, a student at SMK Hasyim Asy'ari Bojong, passionate about technology, literature, and environmental preservation. Currently, I am exploring web development and literary writing, and I enjoy reading and writing poetry. I am also skilled in basic coding and network configuration.
+        Hi! My name is Raebemnyu. I'm a student at SMK Hasyim Asy'ari Bojong who’s passionate about technology, creative writing, and the environment. I’m currently exploring web development and enjoy writing poems and fiction in my free time.
       </p>
-      <a href="CV_Wahbi.pdf" download class="btn"><i class="fas fa-download"></i> Unduh CV</a>
+      <a href="CV_Wahbi.pdf" class="btn" download><i class="fas fa-download"></i> Unduh CV</a>
     </section>
 
-    <!-- Keahlian -->
     <section id="skills" class="container">
       <h2>Keahlian</h2>
       <ul>
@@ -220,46 +265,65 @@
         <li><i class="fas fa-microchip"></i> Perakitan Komputer</li>
         <li><i class="fas fa-desktop"></i> Instalasi Windows</li>
         <li><i class="fas fa-globe"></i> Pengelolaan Website</li>
-        <li><i class="fas fa-mobile-alt"></i> Pemrograman</li>
+        <li><i class="fas fa-code"></i> Pemrograman Dasar</li>
       </ul>
     </section>
 
-    <!-- Pengalaman -->
     <section id="experience" class="container">
       <h2>Pengalaman</h2>
       <article class="experience-card">
         <h3>PKL di PT. Mulia Hati Studio</h3>
-        <p>Menangani masalah jaringan wifi, setting mikrotik, perakitan komputer, servis komputer.</p>
+        <p>Menangani jaringan, setting mikrotik, servis komputer, dan perakitan PC.</p>
       </article>
       <article class="experience-card">
         <h3>Penulis di Blogger</h3>
-        <p>Menulis cerita fiksi dan puisi serta membangun komunitas pembaca secara online.</p>
+        <p>Aktif menulis cerita fiksi, puisi, dan membangun komunitas pembaca online.</p>
       </article>
     </section>
 
-    <!-- Kontak -->
     <section id="contact" class="container">
       <h2>Kontak Saya</h2>
       <p><i class="fas fa-envelope"></i> Email: <a href="mailto:raebemnyu27@gmail.com">raebemnyu27@gmail.com</a></p>
       <p><i class="fab fa-instagram"></i> Instagram: <a href="https://instagram.com/bu.akulelah" target="_blank">@bu.akulelah</a></p>
-      <p><i class="fas fa-link"></i> LinkedIn: <a href="https://linkedin.com/in/wahbi" target="_blank">raebemnyu space</a></p>
+      <p><i class="fab fa-linkedin"></i> LinkedIn: <a href="https://linkedin.com/in/wahbi" target="_blank">raebemnyu space</a></p>
+      <p><i class="fas fa-blog"><</i> Blogger: <a href="https://raebemnyu.blogspot.com" target="_blank">raebemnyu.blogspot.com</a></p>
+
     </section>
   </main>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2025 raebemnyuverse. Semua Hak Dilindungi.</p>
   </footer>
 
-  <!-- JavaScript untuk smooth scrolling -->
   <script>
-    document.querySelectorAll('nav a').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+    // Scroll Reveal Effect
+    const sections = document.querySelectorAll('.container');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal');
+          observer.unobserve(entry.target);
+        }
       });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // Menu Toggle
+    const toggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    toggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      <!-- Tambahan di script -->
+// Menu Toggle + Suara
+const sound = document.getElementById('click-sound');
+toggle.addEventListener('click', () => {
+  navMenu.classList.toggle('active');
+  sound.play();
+});
     });
   </script>
 
